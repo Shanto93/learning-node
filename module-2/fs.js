@@ -1,11 +1,17 @@
 const fs = require("fs");
 
-const data = fs.readFile(`./file-read.txt`, "utf8", (err, data) => {
-  if (err) {
-    console.log("Error reading file: ", err);
-  }
-  console.log(data);
+// const data = fs.readFile(`./file-read.txt`, "utf8", (err, data) => {
+//   if (err) {
+//     console.log("Error reading file: ", err);
+//   }
+//   console.log(data);
+// });
+
+const data = fs.readFileSync("./file-read.txt", {
+  encoding: "utf8",
+  flag: "r",
 });
+console.log(data);
 
 // const fs = require('fs');
 
