@@ -7,6 +7,9 @@ const fs = require("fs");
 //   console.log(data);
 // });
 
+const text = "Learning Node.js is fun!";
+fs.writeFileSync('./file-read.txt', text);
+
 const data = fs.readFileSync("./file-read.txt", {
   encoding: "utf8",
   flag: "r",
