@@ -1,20 +1,36 @@
 const http = require("http");
-
 const path = require("path");
 const fs = require("fs");
-
 const filePath = path.join(__dirname, "./db/todo.json");
-
 const data = fs.readFileSync(filePath, { encoding: "utf8" });
 
 const server = http.createServer((req, res) => {
+  // GET all TODO
   if (req.url === "/todo" && req.method === "GET") {
     res.writeHead(200, {
       "content-type": "application/json",
     });
     res.end(data);
-  } else if (req.url === "/todo/create-todos" && req.method === "POST") {
-    res.end("TODO created");
+  }
+  //   POST TODO
+  else if (req.url === "/todo/create-todo" && req.method === "POST") {
+    let data = "";
+    req.on("data", (chunk) => {
+      data = data + chunk;
+    });
+
+    req.on("end", () => {
+      const { title, body } = JSON.parse(data);
+      const createdAt = new Date().toISOString();
+      const todo = { title, body, createdAt };
+      const allTodos = fs.readFileSync(filePath, { encoding: "utf8" });
+      const parsedTodos = JSON.parse(allTodos);
+      parsedTodos.push(todo);
+      fs.writeFileSync(filePath, JSON.stringify(parsedTodos, null, 2), {
+        encoding: "utf8",
+      });
+      res.end(JSON.stringify(todo, null, 2));
+    });
   } else {
     res.end("Invalid request");
   }
