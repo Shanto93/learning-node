@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Buy groceries",
+    "body": "Milk, eggs, bread, and fruits",
+    "createdAt": "2023-05-30T08:00:00Z"
+  },
+  {
+    "title": "Finish project report",
+    "body": "Complete the quarterly analysis and submit by EOD",
+    "createdAt": "2023-05-29T14:30:00Z"
+  },
+  {
+    "title": "Call mom",
+    "body": "Wish her a happy birthday and check on her health",
+    "createdAt": "2023-05-28T18:45:00Z"
+  },
+  {
+    "title": "Go for a run",
+    "body": "30-minute jog in the park, stretch afterward",
+    "createdAt": "2023-05-30T06:15:00Z"
+  },
+  {
+    "title": "Study JavaScript",
+    "body": "Complete the async/await module in the online course",
+    "createdAt": "2023-05-27T20:00:00Z"
+  }
+]
