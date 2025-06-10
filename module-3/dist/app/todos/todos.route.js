@@ -17,14 +17,15 @@ const express_1 = __importDefault(require("express"));
 const mongodb_1 = require("../../config/mongodb");
 exports.todoroutes = express_1.default.Router();
 const todosDB = mongodb_1.client.db("todosDB2").collection("todos");
-// todoroutes.get("/", async (req: Request, res: Response) => {
-//   try {
-//     const todos = await todosDB.find().toArray();
-//     res.send(todos);
-//   } catch (error) {
-//     res.status(500).send({ message: "Error fetching todos", error });
-//   }
-// });
+exports.todoroutes.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const todos = yield todosDB.find().toArray();
+        res.send(todos);
+    }
+    catch (error) {
+        res.status(500).send({ message: "Error fetching todos", error });
+    }
+}));
 exports.todoroutes.post("/create-todo", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = req.body;

@@ -5,14 +5,14 @@ export const todoroutes = express.Router();
 
 const todosDB = client.db("todosDB2").collection("todos");
 
-// todoroutes.get("/", async (req: Request, res: Response) => {
-//   try {
-//     const todos = await todosDB.find().toArray();
-//     res.send(todos);
-//   } catch (error) {
-//     res.status(500).send({ message: "Error fetching todos", error });
-//   }
-// });
+todoroutes.get("/", async (req: Request, res: Response) => {
+  try {
+    const todos = await todosDB.find().toArray();
+    res.send(todos);
+  } catch (error) {
+    res.status(500).send({ message: "Error fetching todos", error });
+  }
+});
 
 todoroutes.post("/create-todo", async (req: Request, res: Response) => {
   try {
