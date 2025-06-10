@@ -55,3 +55,19 @@ exports.todoroutes.post("/create-todo", (req, res) => __awaiter(void 0, void 0, 
         res.status(500).send({ message: "Error creating todo", error });
     }
 }));
+exports.todoroutes.delete("/delete-todo/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        const query = {
+            _id: new mongodb_2.ObjectId(id),
+        };
+        const result = yield todosDB.deleteOne(query);
+        res.send({
+            message: "Todo deleted successfully",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).send({ message: "Error creating todo", error });
+    }
+}));

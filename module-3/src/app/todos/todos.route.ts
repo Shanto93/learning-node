@@ -42,3 +42,18 @@ todoroutes.post("/create-todo", async (req: Request, res: Response) => {
     res.status(500).send({ message: "Error creating todo", error });
   }
 });
+todoroutes.delete("/delete-todo/:id", async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const query = {
+      _id: new ObjectId(id),
+    };
+    const result = await todosDB.deleteOne(query);
+    res.send({
+      message: "Todo deleted successfully",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).send({ message: "Error creating todo", error });
+  }
+});
