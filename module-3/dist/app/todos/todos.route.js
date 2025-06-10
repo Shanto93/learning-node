@@ -71,3 +71,29 @@ exports.todoroutes.delete("/delete-todo/:id", (req, res) => __awaiter(void 0, vo
         res.status(500).send({ message: "Error creating todo", error });
     }
 }));
+exports.todoroutes.patch("/update-todo/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        const { title, description, priority, isCompleted } = req.body;
+        const updatedTodo = {
+            $set: {
+                title: title,
+                description: description,
+                priority: priority,
+                isCompleted: isCompleted,
+            },
+        };
+        const filter = {
+            _id: new mongodb_2.ObjectId(id),
+        };
+        const options = { upsert: true };
+        const result = yield todosDB.updateOne(filter, updatedTodo, options);
+        res.send({
+            message: "Todo updated successfully",
+            data: result,
+        });
+    }
+    catch (error) {
+        res.status(500).send({ message: "Error creating todo", error });
+    }
+}));
