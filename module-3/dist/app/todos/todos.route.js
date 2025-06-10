@@ -15,8 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.todoroutes = void 0;
 const express_1 = __importDefault(require("express"));
 const mongodb_1 = require("../../config/mongodb");
+const mongodb_2 = require("mongodb");
 exports.todoroutes = express_1.default.Router();
 const todosDB = mongodb_1.client.db("todosDB2").collection("todos");
+//Get all TODOS
 exports.todoroutes.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const todos = yield todosDB.find().toArray();
@@ -24,6 +26,20 @@ exports.todoroutes.get("/", (req, res) => __awaiter(void 0, void 0, void 0, func
     }
     catch (error) {
         res.status(500).send({ message: "Error fetching todos", error });
+    }
+}));
+//GET single Todo
+exports.todoroutes.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const id = req.params.id;
+        const query = {
+            _id: new mongodb_2.ObjectId(id),
+        };
+        const result = yield todosDB.findOne(query);
+        res.send(result);
+    }
+    catch (error) {
+        res.status(500).send({ message: "Error fetching single data", error });
     }
 }));
 exports.todoroutes.post("/create-todo", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
